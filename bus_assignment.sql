@@ -53,6 +53,7 @@ CREATE USER "bus_system_admin"@"localhost" IDENTIFIED BY "admin";
 GRANT ALL PRIVILEGES ON bus_assignment TO "bus_system_admin"@"localhost";
 
 -- trip_admin
+-- has all privileges except drop, but has drop on Passenger table
 CREATE USER "trip_admin"@"localhost" IDENTIFIED BY "tripadmin";
 GRANT ALL PRIVILEGES ON bus_assignment TO "trip_admin"@"localhost";
 REVOKE DROP ON bus_assignment FROM "trip_admin"@"localhost";
