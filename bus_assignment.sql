@@ -46,3 +46,9 @@ passenger_id VARCHAR(10) PRIMARY KEY NOT NULL,
 first_name VARCHAR(50),
 last_name VARCHAR(50)
 );
+
+-- creating an admin
+-- has all privileges for the whole database
+CREATE USER "bus_system_admin"@"localhost" IDENTIFIED BY "admin";
+GRANT ALL PRIVILEGES ON bus_assignment TO "bus_system_admin"@"localhost";
+
