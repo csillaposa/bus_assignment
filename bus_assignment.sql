@@ -57,3 +57,15 @@ CREATE USER "trip_admin"@"localhost" IDENTIFIED BY "tripadmin";
 GRANT ALL PRIVILEGES ON bus_assignment TO "trip_admin"@"localhost";
 REVOKE DROP ON bus_assignment FROM "trip_admin"@"localhost";
 GRANT DROP ON bus_assignment.passenger TO "trip_admin"@"localhost";
+
+-- ticket_booker
+-- allowed only to select, insert, update, delete from passenger and trip_passenger tables
+CREATE USER "ticket_booker"@"localhost" IDENTIFIED BY "ticketbooker";
+GRANT SELECT ON bus_assignment.passenger TO "ticket_booker"@"localhost";
+GRANT SELECT ON bus_assignment.trip_passenger TO "ticket_booker"@"localhost";
+GRANT INSERT ON bus_assignment.passenger TO "ticket_booker"@"localhost";
+GRANT INSERT ON bus_assignment.trip_passenger TO "ticket_booker"@"localhost";
+GRANT UPDATE ON bus_assignment.passenger TO "ticket_booker"@"localhost";
+GRANT UPDATE ON bus_assignment.trip_passenger TO "ticket_booker"@"localhost";
+GRANT DELETE ON bus_assignment.passenger TO "ticket_booker"@"localhost";
+GRANT DELETE ON bus_assignment.trip_passenger TO "ticket_booker"@"localhost";
