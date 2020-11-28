@@ -12,38 +12,38 @@ public class Bus_Assignment {
         Connection bus_assignment_db = DriverManager.getConnection(url, user, password);
 
         //create bus
-        String model_nr = "12345";
+        String model_nr = "005";
         Integer capacity = 40;
 
-        //int firstBus = AddBus(bus_assignment_db, model_nr, capacity);
+        //int createBus = AddBus(bus_assignment_db, model_nr, capacity);
 
         //create route
-        String start_stop = "Oslo";
-        String end_stop = "Trondheim";
-        String expected_time = "17:35";
+        String start_stop = "Trondheim";
+        String end_stop = "Molde";
+        String expected_time = "15:05";
 
-        //int firstRoute = AddRoute(bus_assignment_db, start_stop, end_stop, expected_time);
+        //int createRoute = AddRoute(bus_assignment_db, start_stop, end_stop, expected_time);
 
         //create trip
-        String trip_name = "First Trip";
-        String trip_date = "21.01.07.";
-        Integer bus_id = 3;
-        Integer route_id = 1;
+        String trip_name = "Trondheim_Molde";
+        String trip_date = "15.12.20.";
+        Integer bus_id = 5;
+        Integer route_id = 5;
 
-        //int firstTrip = AddTrip(bus_assignment_db, trip_name, trip_date, bus_id, route_id);
+        //int createTrip = AddTrip(bus_assignment_db, trip_name, trip_date, bus_id, route_id);
 
         //create passenger
-        String first_name = "Csilla";
-        String last_name = "Posa";
+        String first_name = "Adam";
+        String last_name = "Rajkai";
 
-        //int firstPassenger = AddPassenger(bus_assignment_db, first_name, last_name);
+        //int createPassenger = AddPassenger(bus_assignment_db, first_name, last_name);
 
         //create trip for passenger
-        Integer trip_id = 1;
-        Integer passenger_id = 1;
+        Integer trip_id = 3;
+        Integer passenger_id = 2;
         String seat_type = "economy";
 
-        //int firstPassengerTrip = AddTripPassenger(bus_assignment_db, trip_id, passenger_id, seat_type);
+        //int createPassengerTrip = AddTripPassenger(bus_assignment_db, trip_id, passenger_id, seat_type);
 
         displayTripRoute(bus_assignment_db);
 
@@ -98,7 +98,7 @@ public class Bus_Assignment {
 
     // method for printing out each trip's route
     private static void displayTripRoute(Connection bus_assignment_db) throws SQLException {
-        PreparedStatement displayStatement = bus_assignment_db.prepareStatement("SELECT * FROM trip FULL JOIN route");
+        PreparedStatement displayStatement = bus_assignment_db.prepareStatement("SELECT * FROM trip NATURAL JOIN route");
 
         ResultSet tripRouteTable = displayStatement.executeQuery();
 
