@@ -39,13 +39,16 @@ public class Bus_Assignment {
         //int createPassenger = AddPassenger(bus_assignment_db, first_name, last_name);
 
         //create trip for passenger
-        Integer trip_id = 3;
-        Integer passenger_id = 2;
+        Integer trip_id = 5;
+        Integer passenger_id = 4;
         String seat_type = "economy";
 
-        //int createPassengerTrip = AddTripPassenger(bus_assignment_db, trip_id, passenger_id, seat_type);
+        int createPassengerTrip = AddTripPassenger(bus_assignment_db, trip_id, passenger_id, seat_type);
 
-        displayTripRoute(bus_assignment_db);
+        //displayTripRoute(bus_assignment_db);
+
+        //delete passenger
+        DeletePassenger(bus_assignment_db, 2);
 
     }
 
@@ -113,4 +116,19 @@ public class Bus_Assignment {
                     + " " + tripRouteTable.getString("expected_time"));
         }
     }
+
+    // delete passenger
+    private static void DeletePassenger(Connection bus_assignment_db, Integer passenger_id) throws SQLException {
+        PreparedStatement deletePassengerFromTP = bus_assignment_db.prepareStatement("DELETE FROM trip_passenger WHERE passenger_id = ?");
+
+        deletePassengerFromTP.setInt(1, passenger_id);
+        deletePassengerFromTP.executeUpdate();
+
+        PreparedStatement deletePassengerFromPassenger = bus_assignment_db.prepareStatement("DELETE FROM passenger WHERE passenger_id = ?");
+        deletePassengerFromPassenger.setInt(1, passenger_id);
+        deletePassengerFromPassenger.executeUpdate();
+    }
+
+    // update passenger
+    
 }
