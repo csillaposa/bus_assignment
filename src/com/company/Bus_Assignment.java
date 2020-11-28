@@ -15,8 +15,15 @@ public class Bus_Assignment {
         String model_nr = "12345";
         Integer capacity = 40;
 
-        int firstBus = AddBus(bus_assignment_db, model_nr, capacity);
-        displayBusses(bus_assignment_db);
+        //int firstBus = AddBus(bus_assignment_db, model_nr, capacity);
+        //displayBusses(bus_assignment_db);
+
+        //create route
+        String start_stop = "Oslo";
+        String end_stop = "Trondheim";
+        String expected_time = "17:35";
+
+        int firstRoute = AddRoute(bus_assignment_db, start_stop, end_stop, expected_time);
     }
 
     // method to add busses
@@ -39,6 +46,13 @@ public class Bus_Assignment {
     }
 
     // method to create new routes
+    private static int AddRoute(Connection bus_assignment_db, String start_stop, String end_stop, String expected_time) throws SQLException {
+        PreparedStatement addRoute = bus_assignment_db.prepareStatement("INSERT INTO route (start_stop, end_stop, expected_time) VALUES (?, ?, ?)");
+        addRoute.setString(1, start_stop);
+        addRoute.setString(2, end_stop);
+        addRoute.setString(3, expected_time);
+        return addRoute.executeUpdate();
+    }
 
     // method to create new trips
 }

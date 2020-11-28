@@ -78,4 +78,4 @@ GRANT INSERT ON bus_assignment.* TO "test_user"@"localhost";
 
 SELECT * FROM mysql.user;
 
-SHOW GRANTS FOR 'test_user'@'localhost';
+SHOW GRANTS FOR 'ticket_booker'@'localhost';
