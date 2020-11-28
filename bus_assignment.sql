@@ -6,14 +6,14 @@ USE bus_assignment;
 -- filling the database with the required tables
 -- Bus table
 CREATE TABLE Bus(
-bus_id INT PRIMARY KEY NOT NULL,
+bus_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 model_nr VARCHAR(20),
 capacity INT
 );
 
 -- Route table
 CREATE TABLE Route(
-route_id INT PRIMARY KEY NOT NULL,
+route_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 start_stop VARCHAR(50),
 end_stop VARCHAR(50),
 expected_time VARCHAR(10)
@@ -21,7 +21,7 @@ expected_time VARCHAR(10)
 
 -- Trip table
 CREATE TABLE Trip(
-trip_id INT PRIMARY KEY NOT NULL,
+trip_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 trip_name VARCHAR(20),
 trip_date VARCHAR(10),
 bus_id INT,
@@ -42,7 +42,7 @@ FOREIGN KEY (passenger_id) REFERENCES Passenger(passenger_id)
 
 -- Passenger table
 CREATE TABLE Passenger(
-passenger_id INT PRIMARY KEY NOT NULL,
+passenger_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 first_name VARCHAR(50),
 last_name VARCHAR(50)
 );
@@ -52,13 +52,13 @@ DROP TABLE IF EXISTS bus, passenger, route, trip, trip_passenger;
 -- creating an admin
 -- has all privileges for the whole database
 CREATE USER "bus_system_admin"@"localhost" IDENTIFIED BY "admin";
-GRANT ALL PRIVILEGES ON bus_assignment TO "bus_system_admin"@"localhost";
+GRANT ALL PRIVILEGES ON bus_assignment.* TO "bus_system_admin"@"localhost";
 
 -- trip_admin
 -- has all privileges except drop, but has drop on Passenger table
 CREATE USER "trip_admin"@"localhost" IDENTIFIED BY "tripadmin";
-GRANT ALL PRIVILEGES ON bus_assignment TO "trip_admin"@"localhost";
-REVOKE DROP ON bus_assignment FROM "trip_admin"@"localhost";
+GRANT ALL PRIVILEGES ON bus_assignment.* TO "trip_admin"@"localhost";
+REVOKE DROP ON bus_assignment.* FROM "trip_admin"@"localhost";
 GRANT DROP ON bus_assignment.passenger TO "trip_admin"@"localhost";
 
 -- ticket_booker
@@ -72,3 +72,10 @@ GRANT UPDATE ON bus_assignment.passenger TO "ticket_booker"@"localhost";
 GRANT UPDATE ON bus_assignment.trip_passenger TO "ticket_booker"@"localhost";
 GRANT DELETE ON bus_assignment.passenger TO "ticket_booker"@"localhost";
 GRANT DELETE ON bus_assignment.trip_passenger TO "ticket_booker"@"localhost";
+
+CREATE USER "test_user"@"localhost" IDENTIFIED BY "testuser";
+GRANT INSERT ON bus_assignment.* TO "test_user"@"localhost";
+
+SELECT * FROM mysql.user;
+
+SHOW GRANTS FOR 'test_user'@'localhost';
