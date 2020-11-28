@@ -5,8 +5,8 @@ import java.sql.*;
 public class Bus_Assignment {
     public static void main(String[] args) throws SQLException {
         String url = "JDBC:mysql://localhost:3306/bus_assignment?serverTimezone=UTC";
-        String user = "ticket_booker";
-        String password = "ticketbooker";
+        String user = "trip_admin";
+        String password = "tripadmin";
 
         // connect to database
         Connection bus_assignment_db = DriverManager.getConnection(url, user, password);
@@ -16,7 +16,6 @@ public class Bus_Assignment {
         Integer capacity = 40;
 
         //int firstBus = AddBus(bus_assignment_db, model_nr, capacity);
-        //displayBusses(bus_assignment_db);
 
         //create route
         String start_stop = "Oslo";
@@ -44,7 +43,9 @@ public class Bus_Assignment {
         Integer passenger_id = 1;
         String seat_type = "window";
 
-        int firstPassengerTrip = AddTripPassenger(bus_assignment_db, trip_id, passenger_id, seat_type);
+        //int firstPassengerTrip = AddTripPassenger(bus_assignment_db, trip_id, passenger_id, seat_type);
+
+        displayTripRoute(bus_assignment_db);
 
     }
 
@@ -55,18 +56,6 @@ public class Bus_Assignment {
         addBus.setString(1, model_nr);
         addBus.setInt(2, capacity);
         return addBus.executeUpdate();
-    }
-
-    // method to display busses
-    private static void displayBusses(Connection bus_assignment_db) throws SQLException {
-        PreparedStatement displayStatement = bus_assignment_db.prepareStatement("SELECT * FROM bus_assignment.bus");
-
-        ResultSet busTable = displayStatement.executeQuery();
-
-        while (busTable.next()) {
-            System.out.println(busTable.getString("bus_id") + " " + busTable.getString("model_nr")
-                    + " " + busTable.getString("capacity"));
-        }
     }
 
     // method to create new routes
@@ -108,5 +97,20 @@ public class Bus_Assignment {
     }
 
     // method for printing out each trip's route
-    
+    private static void displayTripRoute(Connection bus_assignment_db) throws SQLException {
+        PreparedStatement displayStatement = bus_assignment_db.prepareStatement("SELECT * FROM trip FULL JOIN route");
+
+        ResultSet tripRouteTable = displayStatement.executeQuery();
+
+        while (tripRouteTable.next()) {
+            System.out.println(tripRouteTable.getString("trip_id")
+                    + " " + tripRouteTable.getString("trip_name")
+                    + " " + tripRouteTable.getString("trip_date")
+                    + " " + tripRouteTable.getString("bus_id")
+                    + " " + tripRouteTable.getString("route_id")
+                    + " " + tripRouteTable.getString("start_stop")
+                    + " " + tripRouteTable.getString("end_stop")
+                    + " " + tripRouteTable.getString("expected_time"));
+        }
+    }
 }
