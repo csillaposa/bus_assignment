@@ -30,21 +30,21 @@ FOREIGN KEY (bus_id) REFERENCES Bus(bus_id),
 FOREIGN KEY (route_id) REFERENCES Route(route_id)
 );
 
--- Trip_Passenger table
-CREATE TABLE Trip_Passenger(
-trip_id INT,
-passenger_id INT,
-seat_type VARCHAR(20),
-PRIMARY KEY (trip_id, passenger_id),
-FOREIGN KEY (trip_id) REFERENCES Trip(trip_id),
-FOREIGN KEY (passenger_id) REFERENCES Passenger(passenger_id)
-);
-
 -- Passenger table
 CREATE TABLE Passenger(
 passenger_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 first_name VARCHAR(50),
 last_name VARCHAR(50)
+);
+
+-- Trip_Passenger table
+CREATE TABLE Trip_Passenger(
+trip_id INT,
+passenger_id INT,
+seat_type VARCHAR(20),
+seat_nr INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+FOREIGN KEY (trip_id) REFERENCES Trip(trip_id),
+FOREIGN KEY (passenger_id) REFERENCES Passenger(passenger_id)
 );
 
 DROP TABLE IF EXISTS bus, passenger, route, trip, trip_passenger;

@@ -41,7 +41,7 @@ public class Bus_Assignment {
         //create trip for passenger
         Integer trip_id = 1;
         Integer passenger_id = 1;
-        String seat_type = "window";
+        String seat_type = "economy";
 
         //int firstPassengerTrip = AddTripPassenger(bus_assignment_db, trip_id, passenger_id, seat_type);
 
