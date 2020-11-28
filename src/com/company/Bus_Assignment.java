@@ -43,12 +43,15 @@ public class Bus_Assignment {
         Integer passenger_id = 4;
         String seat_type = "economy";
 
-        int createPassengerTrip = AddTripPassenger(bus_assignment_db, trip_id, passenger_id, seat_type);
+        //int createPassengerTrip = AddTripPassenger(bus_assignment_db, trip_id, passenger_id, seat_type);
 
         //displayTripRoute(bus_assignment_db);
 
         //delete passenger
-        DeletePassenger(bus_assignment_db, 2);
+        //DeletePassenger(bus_assignment_db, 2);
+
+        //update passenger
+        int updatePassenger = UpdatePassenger(bus_assignment_db, 4,"Adrienn" , "Feher");
 
     }
 
@@ -130,5 +133,12 @@ public class Bus_Assignment {
     }
 
     // update passenger
-    
+    private static int UpdatePassenger(Connection bus_assignment_db, Integer passenger_id, String first_name, String last_name) throws SQLException {
+        PreparedStatement updatePassenger = bus_assignment_db.prepareStatement("UPDATE passenger SET passenger_id = ?, first_name = ?, last_name = ? WHERE passenger_id = ?");
+        updatePassenger.setInt(1, passenger_id);
+        updatePassenger.setString(2, first_name);
+        updatePassenger.setString(3, last_name);
+        updatePassenger.setInt(4, passenger_id);
+        return updatePassenger.executeUpdate();
+    }
 }
