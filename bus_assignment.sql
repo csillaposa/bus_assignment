@@ -16,14 +16,14 @@ CREATE TABLE Route(
 route_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 start_stop VARCHAR(50),
 end_stop VARCHAR(50),
-expected_time VARCHAR(10)
+expected_time VARCHAR(20)
 );
 
 -- Trip table
 CREATE TABLE Trip(
 trip_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 trip_name VARCHAR(20),
-trip_date VARCHAR(10),
+trip_date VARCHAR(20),
 bus_id INT,
 route_id INT,
 FOREIGN KEY (bus_id) REFERENCES Bus(bus_id),
@@ -39,13 +39,14 @@ last_name VARCHAR(50)
 
 -- Trip_Passenger table
 CREATE TABLE Trip_Passenger(
+ticket_nr INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 trip_id INT,
 passenger_id INT,
-seat_type VARCHAR(20),
-seat_nr INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+seat_type VARCHAR(10),
 FOREIGN KEY (trip_id) REFERENCES Trip(trip_id),
 FOREIGN KEY (passenger_id) REFERENCES Passenger(passenger_id)
 );
+
 
 DROP TABLE IF EXISTS bus, passenger, route, trip, trip_passenger;
 
