@@ -14,35 +14,35 @@ public class Bus_Assignment {
         //CREATE BUS
         String model_nr = "005";
         Integer capacity = 40;
-
         //int createBus = AddBus(bus_assignment_db, model_nr, capacity);
+
+        //DELETE BUS
+        //DeleteBus(bus_assignment_db, 4);
 
         //CREATE ROUTE
         String start_stop = "Trondheim";
         String end_stop = "Oslo";
         String expected_time = "20:45";
-
         //int createRoute = AddRoute(bus_assignment_db, start_stop, end_stop, expected_time);
 
-        //CREATE ROUTE
-        //String trip_name = "Trondheim_Oslo";
+        //DELETE ROUTE
+
+        //CREATE TRIP
+        String trip_name = "Trondheim_Oslo";
         String trip_date = "11.12.2020.";
         Integer bus_id = 1;
         Integer route_id = 6;
-
         //int createTrip = AddTrip(bus_assignment_db, trip_name, trip_date, bus_id, route_id);
 
         //CREATE PASSENGER
         String first_name = "John";
         String last_name = "Doe";
-
         //int createPassenger = AddPassenger(bus_assignment_db, first_name, last_name);
 
         //ADD PASSENGER TO TRIP
         Integer trip_id = 1;
         Integer passenger_id = 6;
         String seat_type = "economy";
-
         //int createPassengerTrip = AddTripPassenger(bus_assignment_db, trip_id, passenger_id, seat_type);
 
         //DISPLAY TRIP ROUTES
@@ -66,6 +66,14 @@ public class Bus_Assignment {
         addBus.setString(1, model_nr);
         addBus.setInt(2, capacity);
         return addBus.executeUpdate();
+    }
+
+    // method to delete bus
+    private static void DeleteBus(Connection bus_assignment_db, Integer bus_id) throws SQLException {
+        PreparedStatement deleteBus = bus_assignment_db.prepareStatement("DELETE FROM bus WHERE bus_id = ?");
+
+        deleteBus.setInt(1, bus_id);
+        deleteBus.executeUpdate();
     }
 
     // method to create new routes
