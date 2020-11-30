@@ -11,20 +11,20 @@ public class Bus_Assignment {
         // connect to database
         Connection bus_assignment_db = DriverManager.getConnection(url, user, password);
 
-        //create bus
+        //CREATE BUS
         String model_nr = "005";
         Integer capacity = 40;
 
         //int createBus = AddBus(bus_assignment_db, model_nr, capacity);
 
-        //create route
+        //CREATE ROUTE
         String start_stop = "Trondheim";
         String end_stop = "Oslo";
         String expected_time = "20:45";
 
         //int createRoute = AddRoute(bus_assignment_db, start_stop, end_stop, expected_time);
 
-        //create trip
+        //CREATE ROUTE
         //String trip_name = "Trondheim_Oslo";
         String trip_date = "11.12.2020.";
         Integer bus_id = 1;
@@ -32,29 +32,30 @@ public class Bus_Assignment {
 
         //int createTrip = AddTrip(bus_assignment_db, trip_name, trip_date, bus_id, route_id);
 
-        //create passenger
+        //CREATE PASSENGER
         String first_name = "John";
         String last_name = "Doe";
 
         //int createPassenger = AddPassenger(bus_assignment_db, first_name, last_name);
 
-        //create trip for passenger
-        Integer trip_id = 2;
-        Integer passenger_id = 1;
+        //ADD PASSENGER TO TRIP
+        Integer trip_id = 1;
+        Integer passenger_id = 6;
         String seat_type = "economy";
 
         //int createPassengerTrip = AddTripPassenger(bus_assignment_db, trip_id, passenger_id, seat_type);
 
+        //DISPLAY TRIP ROUTES
         //DisplayTripRoute(bus_assignment_db);
 
-        //delete passenger
+        //DELETE PASSENGER
         //DeletePassenger(bus_assignment_db, 9);
 
-        //update passenger
+        //UPDATE PASSENGER
         //int updatePassenger = UpdatePassenger(bus_assignment_db, 8,"Henrik" , "Ibsen");
 
-        //display passengers by trip name
-        DisplayPassengers(bus_assignment_db, "Oslo_Bergen");
+        //DISPLAY PASSENGERS BY TRIP NAME
+        //DisplayPassengers(bus_assignment_db, "Oslo_Bergen");
 
     }
 
