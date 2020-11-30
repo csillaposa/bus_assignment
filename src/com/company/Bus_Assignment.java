@@ -19,39 +19,42 @@ public class Bus_Assignment {
 
         //create route
         String start_stop = "Trondheim";
-        String end_stop = "Molde";
-        String expected_time = "15:05";
+        String end_stop = "Oslo";
+        String expected_time = "20:45";
 
         //int createRoute = AddRoute(bus_assignment_db, start_stop, end_stop, expected_time);
 
         //create trip
-        String trip_name = "Trondheim_Molde";
-        String trip_date = "15.12.20.";
-        Integer bus_id = 5;
-        Integer route_id = 5;
+        //String trip_name = "Trondheim_Oslo";
+        String trip_date = "11.12.2020.";
+        Integer bus_id = 1;
+        Integer route_id = 6;
 
         //int createTrip = AddTrip(bus_assignment_db, trip_name, trip_date, bus_id, route_id);
 
         //create passenger
-        String first_name = "Adam";
-        String last_name = "Rajkai";
+        String first_name = "John";
+        String last_name = "Doe";
 
         //int createPassenger = AddPassenger(bus_assignment_db, first_name, last_name);
 
         //create trip for passenger
-        Integer trip_id = 5;
-        Integer passenger_id = 4;
+        Integer trip_id = 2;
+        Integer passenger_id = 1;
         String seat_type = "economy";
 
         //int createPassengerTrip = AddTripPassenger(bus_assignment_db, trip_id, passenger_id, seat_type);
 
-        //displayTripRoute(bus_assignment_db);
+        //DisplayTripRoute(bus_assignment_db);
 
         //delete passenger
-        //DeletePassenger(bus_assignment_db, 2);
+        //DeletePassenger(bus_assignment_db, 9);
 
         //update passenger
-        int updatePassenger = UpdatePassenger(bus_assignment_db, 4,"Adrienn" , "Feher");
+        //int updatePassenger = UpdatePassenger(bus_assignment_db, 8,"Henrik" , "Ibsen");
+
+        //display passengers by trip name
+        DisplayPassengers(bus_assignment_db, "Oslo_Bergen");
 
     }
 
@@ -103,7 +106,7 @@ public class Bus_Assignment {
     }
 
     // method for printing out each trip's route
-    private static void displayTripRoute(Connection bus_assignment_db) throws SQLException {
+    private static void DisplayTripRoute(Connection bus_assignment_db) throws SQLException {
         PreparedStatement displayStatement = bus_assignment_db.prepareStatement("SELECT * FROM trip NATURAL JOIN route");
 
         ResultSet tripRouteTable = displayStatement.executeQuery();
@@ -140,5 +143,19 @@ public class Bus_Assignment {
         updatePassenger.setString(3, last_name);
         updatePassenger.setInt(4, passenger_id);
         return updatePassenger.executeUpdate();
+    }
+
+    // method which prints out all booked passengers from a specific trip’s name.
+    private static void DisplayPassengers(Connection bus_assignment_db, String trip_name) throws SQLException {
+        PreparedStatement displayPassenger = bus_assignment_db.prepareStatement("SELECT trip.trip_name, passenger.first_name, passenger.last_name FROM ((passenger JOIN trip_passenger ON passenger.passenger_id = trip_passenger.passenger_id) JOIN trip ON trip_passenger.trip_id = trip.trip_id) WHERE trip_name = ?");
+        displayPassenger.setString(1, trip_name);
+
+        ResultSet allPassengers = displayPassenger.executeQuery();
+
+        while (allPassengers.next()) {
+            System.out.println(allPassengers.getString("trip_name")
+                    + " " + allPassengers.getString("first_name")
+                    + " " + allPassengers.getString("last_name"));
+        }
     }
 }
