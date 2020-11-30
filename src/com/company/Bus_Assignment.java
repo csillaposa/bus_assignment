@@ -17,7 +17,7 @@ public class Bus_Assignment {
         //int createBus = AddBus(bus_assignment_db, model_nr, capacity);
 
         //DELETE BUS
-        //DeleteBus(bus_assignment_db, 4);
+        //DeleteBus(bus_assignment_db, 5);
 
         //CREATE ROUTE
         String start_stop = "Trondheim";
@@ -26,6 +26,7 @@ public class Bus_Assignment {
         //int createRoute = AddRoute(bus_assignment_db, start_stop, end_stop, expected_time);
 
         //DELETE ROUTE
+        //DeleteRoute(bus_assignment_db, 4);
 
         //CREATE TRIP
         String trip_name = "Trondheim_Oslo";
@@ -34,10 +35,16 @@ public class Bus_Assignment {
         Integer route_id = 6;
         //int createTrip = AddTrip(bus_assignment_db, trip_name, trip_date, bus_id, route_id);
 
+        //DELETE TRIP
+        //DeleteTrip(bus_assignment_db, 2);
+
         //CREATE PASSENGER
         String first_name = "John";
         String last_name = "Doe";
         //int createPassenger = AddPassenger(bus_assignment_db, first_name, last_name);
+
+        //DELETE PASSENGER
+        //DeletePassenger(bus_assignment_db, 9);
 
         //ADD PASSENGER TO TRIP
         Integer trip_id = 1;
@@ -47,9 +54,6 @@ public class Bus_Assignment {
 
         //DISPLAY TRIP ROUTES
         //DisplayTripRoute(bus_assignment_db);
-
-        //DELETE PASSENGER
-        //DeletePassenger(bus_assignment_db, 9);
 
         //UPDATE PASSENGER
         //int updatePassenger = UpdatePassenger(bus_assignment_db, 8,"Henrik" , "Ibsen");
@@ -70,8 +74,11 @@ public class Bus_Assignment {
 
     // method to delete bus
     private static void DeleteBus(Connection bus_assignment_db, Integer bus_id) throws SQLException {
-        PreparedStatement deleteBus = bus_assignment_db.prepareStatement("DELETE FROM bus WHERE bus_id = ?");
+        PreparedStatement deleteBusFromTrip = bus_assignment_db.prepareStatement("DELETE FROM trip WHERE bus_id = ?");
+        deleteBusFromTrip.setInt(1, bus_id);
+        deleteBusFromTrip.executeUpdate();
 
+        PreparedStatement deleteBus = bus_assignment_db.prepareStatement("DELETE FROM bus WHERE bus_id = ?");
         deleteBus.setInt(1, bus_id);
         deleteBus.executeUpdate();
     }
@@ -87,6 +94,13 @@ public class Bus_Assignment {
         return addRoute.executeUpdate();
     }
 
+    // method to delete routes
+    private static void DeleteRoute(Connection bus_assignment_db, Integer route_id) throws SQLException {
+        PreparedStatement deleteRoute = bus_assignment_db.prepareStatement("DELETE FROM route WHERE route_id = ?");
+        deleteRoute.setInt(1, route_id);
+        deleteRoute.executeUpdate();
+    }
+
     // method to create new trips
     private static int AddTrip(Connection bus_assignment_db, String trip_name, String trip_date, Integer bus_id, Integer route_id) throws SQLException {
         PreparedStatement addTrip = bus_assignment_db.prepareStatement("INSERT INTO trip (trip_name, trip_date, bus_id, route_id) VALUES (?, ?, ?, ?)");
@@ -97,6 +111,17 @@ public class Bus_Assignment {
         return addTrip.executeUpdate();
     }
 
+    // method to delete trip
+    private static void DeleteTrip(Connection bus_assignment_db, Integer trip_id) throws SQLException {
+        PreparedStatement deleteTripFromTP = bus_assignment_db.prepareStatement("DELETE FROM trip_passenger WHERE trip_id = ?");
+        deleteTripFromTP.setInt(1, trip_id);
+        deleteTripFromTP.executeUpdate();
+
+        PreparedStatement deleteTrip = bus_assignment_db.prepareStatement("DELETE FROM trip WHERE trip_id = ?");
+        deleteTrip.setInt(1, trip_id);
+        deleteTrip.executeUpdate();
+    }
+
     // method for registering a passenger
     private static int AddPassenger(Connection bus_assignment_db, String first_name, String last_name) throws SQLException {
         PreparedStatement addPassenger = bus_assignment_db.prepareStatement("INSERT INTO passenger (first_name, last_name) VALUES (?, ?)");
@@ -105,37 +130,9 @@ public class Bus_Assignment {
         return addPassenger.executeUpdate();
     }
 
-    // method for booking a trip for a passenger
-    private static int AddTripPassenger(Connection bus_assignment_db, Integer trip_id, Integer passenger_id, String seat_type) throws SQLException {
-        PreparedStatement addTripPassenger = bus_assignment_db.prepareStatement("INSERT INTO trip_passenger (trip_id, passenger_id, seat_type) VALUES (?, ?, ?)");
-        addTripPassenger.setInt(1, trip_id);
-        addTripPassenger.setInt(2, passenger_id);
-        addTripPassenger.setString(3, seat_type);
-        return addTripPassenger.executeUpdate();
-    }
-
-    // method for printing out each trip's route
-    private static void DisplayTripRoute(Connection bus_assignment_db) throws SQLException {
-        PreparedStatement displayStatement = bus_assignment_db.prepareStatement("SELECT * FROM trip NATURAL JOIN route");
-
-        ResultSet tripRouteTable = displayStatement.executeQuery();
-
-        while (tripRouteTable.next()) {
-            System.out.println(tripRouteTable.getString("trip_id")
-                    + " " + tripRouteTable.getString("trip_name")
-                    + " " + tripRouteTable.getString("trip_date")
-                    + " " + tripRouteTable.getString("bus_id")
-                    + " " + tripRouteTable.getString("route_id")
-                    + " " + tripRouteTable.getString("start_stop")
-                    + " " + tripRouteTable.getString("end_stop")
-                    + " " + tripRouteTable.getString("expected_time"));
-        }
-    }
-
     // delete passenger
     private static void DeletePassenger(Connection bus_assignment_db, Integer passenger_id) throws SQLException {
         PreparedStatement deletePassengerFromTP = bus_assignment_db.prepareStatement("DELETE FROM trip_passenger WHERE passenger_id = ?");
-
         deletePassengerFromTP.setInt(1, passenger_id);
         deletePassengerFromTP.executeUpdate();
 
@@ -165,6 +162,33 @@ public class Bus_Assignment {
             System.out.println(allPassengers.getString("trip_name")
                     + " " + allPassengers.getString("first_name")
                     + " " + allPassengers.getString("last_name"));
+        }
+    }
+
+    // method for booking a trip for a passenger
+    private static int AddTripPassenger(Connection bus_assignment_db, Integer trip_id, Integer passenger_id, String seat_type) throws SQLException {
+        PreparedStatement addTripPassenger = bus_assignment_db.prepareStatement("INSERT INTO trip_passenger (trip_id, passenger_id, seat_type) VALUES (?, ?, ?)");
+        addTripPassenger.setInt(1, trip_id);
+        addTripPassenger.setInt(2, passenger_id);
+        addTripPassenger.setString(3, seat_type);
+        return addTripPassenger.executeUpdate();
+    }
+
+    // method for printing out each trip's route
+    private static void DisplayTripRoute(Connection bus_assignment_db) throws SQLException {
+        PreparedStatement displayStatement = bus_assignment_db.prepareStatement("SELECT * FROM trip NATURAL JOIN route");
+
+        ResultSet tripRouteTable = displayStatement.executeQuery();
+
+        while (tripRouteTable.next()) {
+            System.out.println(tripRouteTable.getString("trip_id")
+                    + " " + tripRouteTable.getString("trip_name")
+                    + " " + tripRouteTable.getString("trip_date")
+                    + " " + tripRouteTable.getString("bus_id")
+                    + " " + tripRouteTable.getString("route_id")
+                    + " " + tripRouteTable.getString("start_stop")
+                    + " " + tripRouteTable.getString("end_stop")
+                    + " " + tripRouteTable.getString("expected_time"));
         }
     }
 }
