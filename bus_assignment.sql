@@ -39,10 +39,10 @@ last_name VARCHAR(50)
 
 -- Trip_Passenger table
 CREATE TABLE Trip_Passenger(
-ticket_nr INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 trip_id INT,
 passenger_id INT,
 seat_type VARCHAR(10),
+PRIMARY KEY (trip_id, passenger_id),
 FOREIGN KEY (trip_id) REFERENCES Trip(trip_id),
 FOREIGN KEY (passenger_id) REFERENCES Passenger(passenger_id)
 );

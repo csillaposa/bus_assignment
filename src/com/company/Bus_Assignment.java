@@ -3,6 +3,21 @@ package com.company;
 import java.sql.*;
 
 public class Bus_Assignment {
+    private static final String MODEL_NR = "model_nr";
+    private static final String CAPACITY = "capacity";
+    private static final String START_STOP = "start_stop";
+    private static final String END_STOP = "end_stop";
+    private static final String EXPECTED_TIME = "expected_time";
+    private static final String TRIP_NAME = "trip_name";
+    private static final String TRIP_DATE = "trip_date";
+    private static final String BUS_ID = "bus_id";
+    private static final String ROUTE_ID = "route_id";
+    private static final String FIRST_NAME = "first_name";
+    private static final String LAST_NAME = "last_name";
+    private static final String TRIP_ID = "trip_id";
+    private static final String PASSENGER_ID = "passenger_id";
+    private static final String SEAT_TYPE = "seat_type";
+
     public static void main(String[] args) throws SQLException {
         String url = "JDBC:mysql://localhost:3306/bus_assignment?serverTimezone=UTC";
         String user = "trip_admin";
@@ -11,60 +26,47 @@ public class Bus_Assignment {
         // connect to database
         Connection bus_assignment_db = DriverManager.getConnection(url, user, password);
 
-        //CREATE BUS
-        String model_nr = "005";
-        Integer capacity = 40;
-//        int createBus = AddBus(bus_assignment_db, model_nr, capacity);
+       //CREATE BUS
+       //int createBus = AddBus(bus_assignment_db, "003", 40);
 
         //DELETE BUS
-        //DeleteBus(bus_assignment_db, 5);
+        //DeleteBus(bus_assignment_db, 3);
 
         //CREATE ROUTE
-        String start_stop = "Trondheim";
-        String end_stop = "Oslo";
-        String expected_time = "20:45";
-        //int createRoute = AddRoute(bus_assignment_db, start_stop, end_stop, expected_time);
+        //int createRoute = AddRoute(bus_assignment_db, "test", "test", "16:30");
 
         //DELETE ROUTE
-        //DeleteRoute(bus_assignment_db, 4);
+        //DeleteRoute(bus_assignment_db, 3);
 
         //CREATE TRIP
-        String trip_name = "Trondheim_Oslo";
-        String trip_date = "11.12.2020.";
-        Integer bus_id = 1;
-        Integer route_id = 6;
-        //int createTrip = AddTrip(bus_assignment_db, trip_name, trip_date, bus_id, route_id);
+        //int createTrip = AddTrip(bus_assignment_db, "test2", "08.12.2020.", 2, 2);
 
         //DELETE TRIP
-        //DeleteTrip(bus_assignment_db, 2);
+        //DeleteTrip(bus_assignment_db, 3);
 
         //CREATE PASSENGER
-        String first_name = "John";
-        String last_name = "Doe";
-        int createPassenger = AddPassenger(bus_assignment_db, first_name, last_name);
+        //int createPassenger = AddPassenger(bus_assignment_db, "test", "testy");
 
         //DELETE PASSENGER
-        //DeletePassenger(bus_assignment_db, 9);
+        //DeletePassenger(bus_assignment_db, 2);
 
         //UPDATE PASSENGER
-        //int updatePassenger = UpdatePassenger(bus_assignment_db, 5,"Test" , "Test");
+        //int updatePassenger = UpdatePassenger(bus_assignment_db, 1,"John" , "Doe");
 
         //ADD PASSENGER TO TRIP
-        Integer trip_id = 1;
-        Integer passenger_id = 6;
-        String seat_type = "economy";
-        //int createPassengerTrip = AddTripPassenger(bus_assignment_db, trip_id, passenger_id, seat_type);
+        //int createPassengerTrip = AddPassengerToTrip(bus_assignment_db, 1, 1, "first");
 
         //DELETE PASSENGER FROM TRIP
-        //DeletePassengerFromTrip(bus_assignment_db, 6);
+        //DeletePassengerFromTrip(bus_assignment_db, 1);
 
         //DISPLAY TRIP ROUTES
         //DisplayTripRoute(bus_assignment_db);
 
         //DISPLAY PASSENGERS BY TRIP NAME
-        //DisplayPassengers(bus_assignment_db, "Oslo_Bergen");
+        //DisplayPassengers(bus_assignment_db, "test1");
 
     }
+
 
     /**
      * Method that adds a bus to the database
@@ -75,11 +77,12 @@ public class Bus_Assignment {
      * @return
      * @throws SQLException
      */
-    private static int AddBus(Connection bus_assignment_db, String model_nr, Integer capacity) throws SQLException {
+    // method to add busses
+    private static int AddBus(Connection bus_assignment_db, String MODEL_NR, Integer CAPACITY) throws SQLException {
         PreparedStatement addBus = bus_assignment_db.prepareStatement("INSERT INTO bus (model_nr, capacity) " +
                 "VALUES (?, ?)");
-        addBus.setString(1, model_nr);
-        addBus.setInt(2, capacity);
+        addBus.setString(1, MODEL_NR);
+        addBus.setInt(2, CAPACITY);
         return addBus.executeUpdate();
     }
 
@@ -95,13 +98,13 @@ public class Bus_Assignment {
     }
 
     // method to create new routes
-    private static int AddRoute(Connection bus_assignment_db, String start_stop, String end_stop, String expected_time)
+    private static int AddRoute(Connection bus_assignment_db, String START_STOP, String END_STOP, String EXPECTED_TIME)
             throws SQLException {
         PreparedStatement addRoute = bus_assignment_db.prepareStatement("INSERT INTO route " +
                 "(start_stop, end_stop, expected_time) VALUES (?, ?, ?)");
-        addRoute.setString(1, start_stop);
-        addRoute.setString(2, end_stop);
-        addRoute.setString(3, expected_time);
+        addRoute.setString(1, START_STOP);
+        addRoute.setString(2, END_STOP);
+        addRoute.setString(3, EXPECTED_TIME);
         return addRoute.executeUpdate();
     }
 
@@ -113,12 +116,12 @@ public class Bus_Assignment {
     }
 
     // method to create new trips
-    private static int AddTrip(Connection bus_assignment_db, String trip_name, String trip_date, Integer bus_id, Integer route_id) throws SQLException {
+    private static int AddTrip(Connection bus_assignment_db, String TRIP_NAME, String TRIP_DATE, Integer BUS_ID, Integer ROUTE_ID) throws SQLException {
         PreparedStatement addTrip = bus_assignment_db.prepareStatement("INSERT INTO trip (trip_name, trip_date, bus_id, route_id) VALUES (?, ?, ?, ?)");
-        addTrip.setString(1, trip_name);
-        addTrip.setString(2, trip_date);
-        addTrip.setInt(3, bus_id);
-        addTrip.setInt(4, route_id);
+        addTrip.setString(1, TRIP_NAME);
+        addTrip.setString(2, TRIP_DATE);
+        addTrip.setInt(3, BUS_ID);
+        addTrip.setInt(4, ROUTE_ID);
         return addTrip.executeUpdate();
     }
 
@@ -134,10 +137,10 @@ public class Bus_Assignment {
     }
 
     // method for registering a passenger
-    private static int AddPassenger(Connection bus_assignment_db, String first_name, String last_name) throws SQLException {
+    private static int AddPassenger(Connection bus_assignment_db, String FIRST_NAME, String LAST_NAME) throws SQLException {
         PreparedStatement addPassenger = bus_assignment_db.prepareStatement("INSERT INTO passenger (first_name, last_name) VALUES (?, ?)");
-        addPassenger.setString(1, first_name);
-        addPassenger.setString(2, last_name);
+        addPassenger.setString(1, FIRST_NAME);
+        addPassenger.setString(2, LAST_NAME);
         return addPassenger.executeUpdate();
     }
 
@@ -164,7 +167,9 @@ public class Bus_Assignment {
 
     // method which prints out all booked passengers from a specific trip’s name.
     private static void DisplayPassengers(Connection bus_assignment_db, String trip_name) throws SQLException {
-        PreparedStatement displayPassenger = bus_assignment_db.prepareStatement("SELECT trip.trip_name, passenger.first_name, passenger.last_name FROM ((passenger JOIN trip_passenger ON passenger.passenger_id = trip_passenger.passenger_id) JOIN trip ON trip_passenger.trip_id = trip.trip_id) WHERE trip_name = ?");
+        PreparedStatement displayPassenger = bus_assignment_db.prepareStatement("SELECT trip.trip_name, passenger.first_name, " +
+                "passenger.last_name FROM ((passenger JOIN trip_passenger ON passenger.passenger_id = trip_passenger.passenger_id) " +
+                "JOIN trip ON trip_passenger.trip_id = trip.trip_id) WHERE trip_name = ?");
         displayPassenger.setString(1, trip_name);
 
         ResultSet allPassengers = displayPassenger.executeQuery();
@@ -177,11 +182,11 @@ public class Bus_Assignment {
     }
 
     // method for booking a trip for a passenger
-    private static int AddTripPassenger(Connection bus_assignment_db, Integer trip_id, Integer passenger_id, String seat_type) throws SQLException {
+    private static int AddPassengerToTrip(Connection bus_assignment_db, Integer TRIP_ID, Integer PASSENGER_ID, String SEAT_TYPE) throws SQLException {
         PreparedStatement addTripPassenger = bus_assignment_db.prepareStatement("INSERT INTO trip_passenger (trip_id, passenger_id, seat_type) VALUES (?, ?, ?)");
-        addTripPassenger.setInt(1, trip_id);
-        addTripPassenger.setInt(2, passenger_id);
-        addTripPassenger.setString(3, seat_type);
+        addTripPassenger.setInt(1, TRIP_ID);
+        addTripPassenger.setInt(2, PASSENGER_ID);
+        addTripPassenger.setString(3, SEAT_TYPE);
         return addTripPassenger.executeUpdate();
     }
 
