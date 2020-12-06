@@ -27,46 +27,43 @@ public class Bus_Assignment {
         Connection bus_assignment_db = DriverManager.getConnection(url, user, password);
 
         //CREATE BUS
-        //int createBus = AddBus(bus_assignment_db, "004", 40);
+        //int createBus = AddBus(bus_assignment_db, "003", 40);
 
         //DELETE BUS
-        //DeleteBus(bus_assignment_db, 7);
+        //DeleteBus(bus_assignment_db, 3);
 
         //CREATE ROUTE
-        //int createRoute = AddRoute(bus_assignment_db, "test", "test", "17:30");
+        //int createRoute = AddRoute(bus_assignment_db, "test", "test", "16:30");
 
         //DELETE ROUTE
-        //DeleteRoute(bus_assignment_db, 8);
+        //DeleteRoute(bus_assignment_db, 3);
 
         //CREATE TRIP
-        //int createTrip = AddTrip(bus_assignment_db, "Bergen_Oslo", "07.12.2020.", 6, 7);
+        //int createTrip = AddTrip(bus_assignment_db, "test2", "08.12.2020.", 2, 2);
 
         //DELETE TRIP
-        //DeleteTrip(bus_assignment_db, 2);
+        //DeleteTrip(bus_assignment_db, 3);
 
         //CREATE PASSENGER
-        //int createPassenger = AddPassenger(bus_assignment_db, "test", "test");
+        //int createPassenger = AddPassenger(bus_assignment_db, "test", "testy");
 
         //DELETE PASSENGER
-        //DeletePassenger(bus_assignment_db, 10);
+        //DeletePassenger(bus_assignment_db, 2);
 
         //UPDATE PASSENGER
-        //int updatePassenger = UpdatePassenger(bus_assignment_db, 5,"Test" , "Test");
+        //int updatePassenger = UpdatePassenger(bus_assignment_db, 1,"John" , "Doe");
 
         //ADD PASSENGER TO TRIP
-        //Integer trip_id = 1;
-        //Integer passenger_id = 6;
-        //String seat_type = "economy";
-        //int createPassengerTrip = AddPassengerToTrip(bus_assignment_db, 7, 4, "first");
+        //int createPassengerTrip = AddPassengerToTrip(bus_assignment_db, 1, 1, "first");
 
         //DELETE PASSENGER FROM TRIP
-        //DeletePassengerFromTrip(bus_assignment_db, 6);
+        //DeletePassengerFromTrip(bus_assignment_db, 1);
 
         //DISPLAY TRIP ROUTES
         //DisplayTripRoute(bus_assignment_db);
 
         //DISPLAY PASSENGERS BY TRIP NAME
-        //DisplayPassengers(bus_assignment_db, "Oslo_Bergen");
+        //DisplayPassengers(bus_assignment_db, "test1");
 
     }
 
