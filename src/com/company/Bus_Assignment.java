@@ -26,8 +26,8 @@ public class Bus_Assignment {
         // connect to database
         Connection bus_assignment_db = DriverManager.getConnection(url, user, password);
 
-        //CREATE BUS
-        //int createBus = AddBus(bus_assignment_db, "003", 40);
+       //CREATE BUS
+       //int createBus = AddBus(bus_assignment_db, "003", 40);
 
         //DELETE BUS
         //DeleteBus(bus_assignment_db, 3);
@@ -67,6 +67,16 @@ public class Bus_Assignment {
 
     }
 
+
+    /**
+     * Method that adds a bus to the database
+     *
+     * @param bus_assignment_db the jdbc connector
+     * @param model_nr the busses' model
+     * @param capacity the seat capacity of the bus
+     * @return
+     * @throws SQLException
+     */
     // method to add busses
     private static int AddBus(Connection bus_assignment_db, String MODEL_NR, Integer CAPACITY) throws SQLException {
         PreparedStatement addBus = bus_assignment_db.prepareStatement("INSERT INTO bus (model_nr, capacity) " +
