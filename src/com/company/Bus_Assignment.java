@@ -14,7 +14,7 @@ public class Bus_Assignment {
         //CREATE BUS
         String model_nr = "005";
         Integer capacity = 40;
-        //int createBus = AddBus(bus_assignment_db, model_nr, capacity);
+//        int createBus = AddBus(bus_assignment_db, model_nr, capacity);
 
         //DELETE BUS
         //DeleteBus(bus_assignment_db, 5);
@@ -41,7 +41,7 @@ public class Bus_Assignment {
         //CREATE PASSENGER
         String first_name = "John";
         String last_name = "Doe";
-        //int createPassenger = AddPassenger(bus_assignment_db, first_name, last_name);
+        int createPassenger = AddPassenger(bus_assignment_db, first_name, last_name);
 
         //DELETE PASSENGER
         //DeletePassenger(bus_assignment_db, 9);
@@ -66,7 +66,15 @@ public class Bus_Assignment {
 
     }
 
-    // method to add busses
+    /**
+     * Method that adds a bus to the database
+     *
+     * @param bus_assignment_db the jdbc connector
+     * @param model_nr the busses' model
+     * @param capacity the seat capacity of the bus
+     * @return
+     * @throws SQLException
+     */
     private static int AddBus(Connection bus_assignment_db, String model_nr, Integer capacity) throws SQLException {
         PreparedStatement addBus = bus_assignment_db.prepareStatement("INSERT INTO bus (model_nr, capacity) " +
                 "VALUES (?, ?)");
